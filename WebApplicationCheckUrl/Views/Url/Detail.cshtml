@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UrlCheckList>
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Url url = (Url)ViewBag.UrlData;
+}
+
+<div class="card mb-4">
+    <div class="card-header"><i class="fas fa-table mr-1"></i>Url Check List Detail</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Status Code</th>
+                        <th>Create Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@url.Name</td>
+                            <td>@url.Address</td>
+                            <td>@item.StatusCode</td>
+                            <td>@item.CreateDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Url>
+@{
+    ViewData["Title"] = "Index";
+}
+@functions
+{
+    private string tableDataColumns()
+    {
+        string head = @"<th>Id</th>
+<th>Name</th>
+<th>Url Address</th>
+<th>Is Active</th>
+<th>Create Date</th>
+<th>#</th>";
+        return head;
+    }
+}
+<h1 class="mt-4">Users</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a>Home</a></li>
+    <li class="breadcrumb-item active">Url</li>
+</ol>
+
+<div class="card mb-4">
+    <a class="btn btn-primary modalPopupView" data-target="/Url/UrlForm?id=0" data-title="Save Url">
+        Url Ekle
+    </a>
+</div>
+@if (Model != null && (Model.Count() > 0))
+{
+
+    <div class="card mb-4">
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Ur List</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            @Html.Raw(tableDataColumns())
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            @Html.Raw(tableDataColumns())
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.Address</td>
+                                <td>@item.IsActive</td>
+                                <td>@item.CreateDate</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Detail
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item modalPopupView" href="#" data-target="/Url/UrlForm?id=@item.Id">Update</a>
+                                            <a class="dropdown-item" href="javascript:urlDelete(@item.Id)">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        There are no url lists defined !
+    </div>
+}
+
+@section Scripts
+{
+
+    <script>
+
+        function urlDelete(urlId) {
+            alert(urlId);
+
+            if (confirm("Are you sure you want to delete ? ")) {
+
+                $.post("/Url/UrlDelete?urlId="+urlId, function (data) { })
+                    //eğer işlemimiz başarılı bir şekilde gerçekleşirse
+                    .done(function (data) {
+                        if (data) {
+                            location.reload();
+                        } else {
+                            alert("Error !");
+                        }
+                    })
+                   
+            }
+        }
+
+    </script>
+
+}

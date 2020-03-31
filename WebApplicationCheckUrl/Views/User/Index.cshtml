@@ -1,0 +1,71 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "Index";
+}
+@functions
+{
+    private string tableDataColumns()
+    {
+        string head = @"<th>Id</th>
+                <th>Mail Address</th>
+                <th>Password</th>
+                <th>Is Active</th>
+                <th>Is Admin</th>
+                <th>Create Date</th>";
+        return head;
+    }
+}
+<h1 class="mt-4">Users</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="/">Users</a></li>
+    <li class="breadcrumb-item active">Users</li>
+</ol>
+
+@if (Model != null && (Model.Count() > 0))
+{
+    <div class="card mb-4">
+
+        <div class="card-header"><i class="fas fa-table mr-1"></i>User List</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            @Html.Raw(tableDataColumns())
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            @Html.Raw(tableDataColumns())
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.MailAddress</td>
+                                <td>@item.Password</td>
+                                <td>@item.IsActive</td>
+                                <td>@item.IsAdmin</td>
+                                <td>@item.CreateDate</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+
+        There are no user lists defined !
+
+    </div>
+}
+

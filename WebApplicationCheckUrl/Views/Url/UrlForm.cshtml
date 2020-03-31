@@ -1,0 +1,65 @@
+﻿@model UrlAndSchedulerModel
+@{
+    Layout = null;
+}
+
+    <form asp-action="UrlForm">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="@Model.UrlId" />
+        <input type="hidden" asp-for="@Model.ScheduleId" />
+
+        <div class="form-group">
+            <label asp-for="@Model.UrlName">Url Name</label>
+            <input asp-for="@Model.UrlName" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Url Name">
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.UrlAddress">Url Address</label>
+            <input asp-for="@Model.UrlAddress" type="text" class="form-control" placeholder="Url Address">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" asp-for="@Model.IsActive)">
+            <label class="form-check-label" asp-for="@Model.IsActive">Is Active</label>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label asp-for="@Model.StartDate">Start Date</label>
+            <input asp-for="@Model.StartDate" type="text" class="form-control datepicker" placeholder="Start Date">
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Hour">Hour</label>
+            <input asp-for="@Model.Hour" type="number" class="form-control" placeholder="Hour">
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Minute">Minute</label>
+            <input asp-for="@Model.Minute" type="number" class="form-control" placeholder="Minute">
+        </div>
+        <hr />
+        <div class="form-group" id="endDateContr" >
+            <label asp-for="@Model.EndDate">End Date</label>
+            <input asp-for="@Model.EndDate" type="text" class="form-control datepicker" placeholder="End Date">
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.WithInternalInMinutes">With Internal In Minutes</label>
+            <input asp-for="@Model.WithInternalInMinutes" type="text" class="form-control" placeholder="With Internal In Minutes">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" asp-for="@Model.RepeatForever)">
+            <label class="form-check-label" asp-for="@Model.RepeatForever">Is Repeat Forever</label>
+        </div>
+        @if (Model.UrlId == 0)
+        {
+            <button type="submit" class="btn btn-success">Save</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-warning">Update</button>
+        }
+    </form>
+
+<script>
+    getDatePicker();
+
+</script>
+
+
